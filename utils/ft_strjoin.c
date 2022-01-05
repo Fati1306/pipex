@@ -1,37 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_args.c                                       :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fel-maac <fel-maac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/05 11:07:11 by fel-maac          #+#    #+#             */
-/*   Updated: 2022/01/05 12:38:22 by fel-maac         ###   ########.fr       */
+/*   Created: 2022/01/05 12:46:44 by fel-maac          #+#    #+#             */
+/*   Updated: 2022/01/05 12:58:34 by fel-maac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
-#include <stdio.h>
 
-void	parse_args(int ac, char	**av, t_args *s)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	int	i;
+	char	*str;
+	int		i;
+	int		j;
+	size_t	len;
 
-	i = 2;
-	s->file1 = ft_strdup(av[1]);
-	s->file2 = ft_strdup(av[ac - 1]);
-	printf("\n\n%s %s", s->file1, s->file2);
-	s->cmds = (char **) malloc(sizeof(char *) * (ac - 3));
-	while (i < ac - 1)
-	{
-		s->cmds[i - 2] = ft_strdup(av[i]);
-		i++;
-	}
+	str = NULL;
 	i = 0;
-	printf("\n");
-	while (i < ac - 3)
-	{
-		printf("%s ", s->cmds[i]);
-		i++;
-	}
+	j = 0;
+	if (!s1 || !s2)
+		return (NULL);
+	len = ft_strlen(s1) + ft_strlen(s2);
+	str = (char *) malloc (sizeof(char) * len + 1);
+	if (str == NULL)
+		return (NULL);
+	i = 0;
+	while (s1[i])
+		str[j++] = s1[i++];
+	free((char *)s1);
+	i = 0;
+	while (s2[i])
+		str[j++] = s2[i++];
+	str[j] = '\0';
+	return (str);
 }

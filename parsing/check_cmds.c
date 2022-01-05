@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   check_cmds.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fel-maac <fel-maac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/22 07:30:25 by fel-maac          #+#    #+#             */
-/*   Updated: 2022/01/05 12:51:59 by fel-maac         ###   ########.fr       */
+/*   Created: 2022/01/05 12:42:43 by fel-maac          #+#    #+#             */
+/*   Updated: 2022/01/05 13:00:32 by fel-maac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../pipex.h"
 #include <stdio.h>
 
-int	main(int ac, char **av, char **env)
-{
-	t_args	*s;
+//static	check_if_cmd_exists()
+//{}
 
-	s = (t_args *) malloc(sizeof(t_args));
-	parse_args(ac, av, s);
-	parse_path(env, s);
-	check_cmds(s);
-	return (0);
+void	check_cmds(t_args *s)
+{
+	char	*cmd_path;
+
+	cmd_path = ft_strjoin(s->paths[0], s->cmds[0]);
+	printf("\n\n%s", cmd_path);
+	(void)s;
 }

@@ -6,13 +6,13 @@
 #    By: fel-maac <fel-maac@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/22 07:30:30 by fel-maac          #+#    #+#              #
-#    Updated: 2022/01/05 12:34:20 by fel-maac         ###   ########.fr        #
+#    Updated: 2022/01/05 12:47:27 by fel-maac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 
-SRCS = pipex.c parsing/parse_args.c parsing/parse_path.c utils/ft_split.c utils/ft_strdup.c utils/ft_strlen.c
+SRCS = pipex.c parsing/parse_args.c parsing/parse_path.c parsing/check_cmds.c utils/ft_split.c utils/ft_strdup.c utils/ft_strlen.c utils/ft_strjoin.c
 
 OBJS = $(SRCS:.c=.o)
 
