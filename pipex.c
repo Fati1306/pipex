@@ -6,7 +6,7 @@
 /*   By: fel-maac <fel-maac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 07:30:25 by fel-maac          #+#    #+#             */
-/*   Updated: 2022/01/05 12:51:59 by fel-maac         ###   ########.fr       */
+/*   Updated: 2022/01/07 11:48:01 by fel-maac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 int	main(int ac, char **av, char **env)
 {
-	t_args	*s;
+	t_args	s;
 
-	s = (t_args *) malloc(sizeof(t_args));
-	parse_args(ac, av, s);
-	parse_path(env, s);
-	check_cmds(s);
+	parse_args(ac, av, &s);
+	parse_path(env, &s);
+	check_cmds(&s, ac);
+	// system("leaks pipex");
 	return (0);
 }
