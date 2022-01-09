@@ -31,7 +31,7 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o) -I.
 
 test:
-	./pipex file1 wc "ls -l" grep mkdir cmd file2
+	./pipex file1 cat "wc" file2
 	
 clean:
 	$(RM) $(OBJS)

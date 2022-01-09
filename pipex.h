@@ -19,8 +19,9 @@
 
 typedef struct s_args
 {
-	char	*file1;
-	char	*file2;
+	int		f1;
+	int		f2;
+	int		fd[2];
 	char	***cmds;
 	char	**paths;
 	char	***exec_args;
@@ -35,5 +36,7 @@ int		ft_strchr(char *str, int c);
 void	parse_args(int ac, char	**av, t_args *s);
 void	parse_path(char **env, t_args *s);
 void	check_cmds(t_args *s, int ac);
+
+void	perror_exit(char *err_msg);
 
 #endif

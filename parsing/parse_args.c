@@ -18,9 +18,11 @@ void	parse_args(int ac, char	**av, t_args *s)
 	int	i;
 
 	i = 2;
-	s->file1 = ft_strdup(av[1]);
-	s->file2 = ft_strdup(av[ac - 1]);
+	s->f1 = open(av[1], O_RDONLY);
+	s->f2 = open(av[ac - 1], O_WRONLY | O_TRUNC);
 	s->cmds = (char ***) malloc(sizeof(char **) * (ac - 2));
+	if (s->f1 == -1 || s->f2 == -1 || s->cmds == NULL)
+	perror_exit(NULL);
 	while (i < ac - 1)
 	{
 		s->cmds[i - 2] = ft_split(av[i], ' ');
