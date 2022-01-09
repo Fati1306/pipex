@@ -20,19 +20,11 @@ void	parse_args(int ac, char	**av, t_args *s)
 	i = 2;
 	s->file1 = ft_strdup(av[1]);
 	s->file2 = ft_strdup(av[ac - 1]);
-	// printf("\n\n%s %s", s->file1, s->file2);
-	s->cmds = (char **) malloc(sizeof(char *) * (ac - 2));
+	s->cmds = (char ***) malloc(sizeof(char **) * (ac - 2));
 	while (i < ac - 1)
 	{
-		s->cmds[i - 2] = ft_strdup(av[i]);
+		s->cmds[i - 2] = ft_split(av[i], ' ');
 		i++;
 	}
 	s->cmds[i - 2] = NULL;
-	i = 0;
-	// printf("\n");
-	while (s->cmds[i])
-	{
-		// printf("%s ", s->cmds[i]);
-		i++;
-	}
 }

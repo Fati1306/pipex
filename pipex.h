@@ -21,7 +21,7 @@ typedef struct s_args
 {
 	char	*file1;
 	char	*file2;
-	char	**cmds;
+	char	***cmds;
 	char	**paths;
 	char	***exec_args;
 }	t_args;
