@@ -35,24 +35,32 @@ void	check_cmds(t_args *s, int ac)
 	char	*cmd_path;
 	int		i;
 	int		j;
+	int		checker;
 
 	j = 0;
 	s->exec_args = (char ***) malloc(sizeof(char **) * (ac - 2));
 	while (s->cmds[j])
 	{
 		i = 0;
+		checker = 0;
 		while (s->paths[i])
 		{
-			cmd_path = ft_strjoin(s->paths[i], s->cmds[j][0], 0);
+			if (s->cmds[j][0][0] == '.' || s->cmds[j][0][0] == '/')
+				cmd_path = ft_strdup(s->cmds[j][0]);
+			else
+				cmd_path = ft_strjoin(s->paths[i], s->cmds[j][0], 0);
 			if (check_cmd_access(cmd_path) == 1)
 			{
 				alloc_cmd_args(s, cmd_path, j);
 				free(cmd_path);
+				checker = 1;
 				break ;
 			}
 			free(cmd_path);
 			i++;
 		}
+		if (!checker)
+			perror_exit(NULL);
 		j++;
 	}
 }

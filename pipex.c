@@ -15,7 +15,7 @@
 void	perror_exit(char *err_msg)
 {
 	perror(err_msg);
-	exit(1);
+	exit(0);
 }
 
 int	main(int ac, char **av, char **env)
@@ -25,6 +25,8 @@ int	main(int ac, char **av, char **env)
 	int		pid2;
 	int		fd[2];
 
+	if (ac < 5)
+		perror_exit("not enough arguments\n");
 	parse_args(ac, av, &s);
 	parse_path(env, &s);
 	check_cmds(&s, ac);
