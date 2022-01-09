@@ -12,7 +12,7 @@
 
 NAME = pipex
 
-SRCS = pipex.c parsing/parse_args.c parsing/parse_path.c parsing/check_cmds.c utils/ft_split.c utils/ft_strdup.c utils/ft_strlen.c utils/ft_strjoin.c utils/ft_strchr.c
+SRCS = pipex.c parsing/parse_args.c parsing/parse_path.c parsing/alloc_exec_args.c utils/ft_split.c utils/ft_strdup.c utils/ft_strlen.c utils/ft_strjoin.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -31,7 +31,7 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o) -I.
 
 test:
-	./pipex file1 cmd1 wc cmd2 cmd3 cmd4 file2
+	./pipex file1 wc "ls -l" grep mkdir cmd file2
 	
 clean:
 	$(RM) $(OBJS)

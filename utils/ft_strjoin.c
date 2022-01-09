@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../pipex.h"
+#include <stdio.h>
 
 char	*ft_strjoin(char const *s1, char const *s2, int check)
 {
@@ -35,7 +36,14 @@ char	*ft_strjoin(char const *s1, char const *s2, int check)
 		free((char *)s1);
 	i = 0;
 	while (s2[i])
+	{
+		if (check == 2 && s2[i] == ' ')
+		{
+			j++;
+			break ;
+		}
 		str[j++] = s2[i++];
+	}
 	str[j] = '\0';
 	return (str);
 }
