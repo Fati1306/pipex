@@ -20,9 +20,11 @@ void	parse_args(int ac, char	**av, t_args *s)
 	i = 2;
 	s->f1 = open(av[1], O_RDONLY);
 	s->f2 = open(av[ac - 1], O_WRONLY | O_TRUNC);
+	if (pipe(s->fd) == -1)
+		perror_exit(NULL);
 	s->cmds = (char ***) malloc(sizeof(char **) * (ac - 2));
 	if (s->f1 == -1 || s->f2 == -1 || s->cmds == NULL)
-	perror_exit(NULL);
+		perror_exit(NULL);
 	while (i < ac - 1)
 	{
 		s->cmds[i - 2] = ft_split(av[i], ' ');
