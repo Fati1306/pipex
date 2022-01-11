@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <unistd.h>
+# include <stdio.h>
 
 typedef struct s_args
 {
@@ -35,8 +36,9 @@ int		ft_strchr(char *str, int c);
 
 void	parse_args(int ac, char	**av, t_args *s);
 void	parse_path(char **env, t_args *s);
-void	check_cmds(t_args *s, int ac);
+void	get_exec_args(t_args *s, int ac);
 
-void	perror_exit(char *err_msg);
+void	perror_exit(char *err_msg, int err);
+void	free_cmd_path(char **cmd_path);
 
 #endif

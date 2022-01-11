@@ -11,21 +11,26 @@
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include <stdio.h>
 
-void	perror_exit(char *err_msg)
+void	free_cmd_path(char **cmd_path)
+{
+	free(*cmd_path);
+	perror_exit(NULL, 1);
+}
+
+void	perror_exit(char *err_msg, int err)
 {
 	perror(err_msg);
-	exit(0);
+	exit(err);
 }
 
 static void	init(int ac, char **av, t_args *s, char **env)
 {
 	if (ac != 5)
-		perror_exit("incorrect number of arguments\n");
+		perror_exit("incorrect number of arguments\n", 1);
 	parse_args(ac, av, s);
 	parse_path(env, s);
-	check_cmds(s, ac);
+	get_exec_args(s, ac);
 }
 
 static void	exec_pipe(t_args *s, int p, char **env)
@@ -34,40 +39,36 @@ static void	exec_pipe(t_args *s, int p, char **env)
 	{
 		if (dup2(s->f1, 0) == -1 || dup2(s->fd[1], 1) == -1
 			|| close(s->fd[0]) == -1 || close(s->fd[1]))
-			perror_exit(NULL);
+			perror_exit(NULL, 1);
 		execve(s->exec_args[0][0], s->exec_args[0] + 1, env);
-		perror_exit(NULL);
+		perror_exit(NULL, 1);
 	}
 	else if (p == 1)
 	{
 		if (dup2(s->fd[0], 0) == -1 || dup2(s->f2, 1) == -1
 			|| close(s->fd[0]) == 1 || close(s->fd[1]) == -1)
-			perror_exit(NULL);
+			perror_exit(NULL, 1);
 		execve(s->exec_args[1][0], s->exec_args[1] + 1, env);
-		perror_exit(NULL);
+		perror_exit(NULL, 1);
 	}
 }
 
 int	main(int ac, char **av, char **env)
 {
 	t_args	s;
-	int		pid1;
-	int		pid2;
+	int		pid;
 
 	init(ac, av, &s, env);
-	pid1 = fork();
-	pid2 = fork();
-	if (pid1 == -1 || pid2 == -1)
-		perror_exit(NULL);
-	if (pid1 == 0)
+	pid = fork();
+	if (pid == -1)
+		perror_exit(NULL, 1);
+	if (pid == 0)
 		exec_pipe(&s, 0, env);
-	else if (pid2 == 0)
+	else
 		exec_pipe(&s, 1, env);
 	close(s.f1);
 	close(s.f2);
-	close(s.fd[0]);
-	close(s.fd[1]);
-	waitpid(pid1, NULL, 0);
-	waitpid(pid2, NULL, 0);
+	if (waitpid(pid, NULL, 0) == -1)
+		perror_exit(NULL, 1);
 	return (0);
 }

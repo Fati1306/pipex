@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../pipex.h"
-#include <stdio.h>
 
 static void	add_slash(t_args *s)
 {
@@ -36,7 +35,11 @@ void	parse_path(char **env, t_args *s)
 	{
 		if (env[j][0] == 'P' && env[j][1] == 'A' && env[j][2] == 'T'
 		&& env[j][3] == 'H' && env[j][4] == '=')
+		{
 			s->paths = ft_split(env[j] + 5, ':');
+			if (s->paths == NULL)
+				perror_exit(NULL, 1);
+		}
 		j++;
 	}
 	add_slash(s);
