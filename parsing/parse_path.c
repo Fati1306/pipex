@@ -22,6 +22,8 @@ static void	add_slash(t_args *s)
 	while (s->paths[j])
 	{
 		s->paths[j] = ft_strjoin(s->paths[j], "/", 1);
+		if (s->paths[j] == NULL)
+			perror_exit(NULL, 1);
 		j++;
 	}
 }

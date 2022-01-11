@@ -12,7 +12,7 @@
 
 NAME = pipex
 
-SRCS = pipex.c parsing/parse_args.c parsing/parse_path.c parsing/get_exec_args.c utils/ft_split.c utils/ft_strdup.c utils/ft_strlen.c utils/ft_strjoin.c
+SRCS = pipex.c parsing/parse_args.c parsing/parse_path.c parsing/get_exec_args.c utils/err_exit.c utils/ft_split.c utils/ft_strdup.c utils/ft_strlen.c utils/ft_strjoin.c
 
 OBJS = $(SRCS:.c=.o)
 

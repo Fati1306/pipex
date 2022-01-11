@@ -19,10 +19,12 @@ void	parse_args(int ac, char	**av, t_args *s)
 	i = 2;
 	s->f1 = open(av[1], O_RDONLY);
 	s->f2 = open(av[ac - 1], O_WRONLY | O_TRUNC);
+	if (s->f1 == -1 || s->f2 == -1)
+		perror_exit(NULL, 1);
 	if (pipe(s->fd) == -1)
 		perror_exit(NULL, 1);
 	s->cmds = (char ***) malloc(sizeof(char **) * (ac - 2));
-	if (s->f1 == -1 || s->f2 == -1 || s->cmds == NULL)
+	if (s->cmds == NULL)
 		perror_exit(NULL, 1);
 	while (i < ac - 1)
 	{

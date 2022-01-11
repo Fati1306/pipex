@@ -12,18 +12,6 @@
 
 #include "pipex.h"
 
-void	free_cmd_path(char **cmd_path)
-{
-	free(*cmd_path);
-	perror_exit(NULL, 1);
-}
-
-void	perror_exit(char *err_msg, int err)
-{
-	perror(err_msg);
-	exit(err);
-}
-
 static void	init(int ac, char **av, t_args *s, char **env)
 {
 	if (ac != 5)
