@@ -16,6 +16,12 @@ SRCS = pipex.c parsing/parse_args.c parsing/parse_path.c parsing/get_exec_args.c
 
 OBJS = $(SRCS:.c=.o)
 
+BONUS_NAME = pipex_bonus
+
+BONUS_SRCS = pipex_bonus.c parsing/parse_args.c parsing/parse_path.c parsing/get_exec_args.c utils/err_exit.c utils/ft_split.c utils/ft_strdup.c utils/ft_strlen.c utils/ft_strjoin.c
+
+BONUS_OBJS = $(BONUS_SRCS:.c=.o)
+
 CC = cc
 
 CFLAGS = -Wall -Werror -Wextra
@@ -30,14 +36,20 @@ $(NAME): $(OBJS)
 .c.o:
 	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o) -I.
 
+bonus: $(BONUS_OBJS)
+	$(CC) $(CFLAGS) $(BONUS_OBJS) -o $(BONUS_NAME) -I.
+	
 test:
 	./pipex file1 "wc -l" cat file2
-	
+
+test_bonus:
+	./pipex_bonus file1 "wc -l" cat file2
+
 clean:
-	$(RM) $(OBJS)
+	$(RM) $(OBJS) $(BONUS_OBJS)
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) $(NAME) $(BONUS_NAME)
 
 re: fclean all
 

@@ -25,16 +25,16 @@ static void	exec_pipe(t_args *s, int p, char **env)
 {
 	if (p == 0)
 	{
-		if (dup2(s->f1, 0) == -1 || dup2(s->fd[1], 1) == -1
-			|| close(s->fd[0]) == -1 || close(s->fd[1]))
+		if (dup2(s->fd[0][0], 0) == -1 || dup2(s->fd[1][1], 1) == -1
+			|| close(s->fd[1][0]) == -1 || close(s->fd[1][1]))
 			perror_exit(NULL, 1);
 		execve(s->exec_args[0][0], s->exec_args[0] + 1, env);
 		perror_exit(NULL, 1);
 	}
 	else if (p == 1)
 	{
-		if (dup2(s->fd[0], 0) == -1 || dup2(s->f2, 1) == -1
-			|| close(s->fd[0]) == 1 || close(s->fd[1]) == -1)
+		if (dup2(s->fd[1][0], 0) == -1 || dup2(s->fd[0][1], 1) == -1
+			|| close(s->fd[1][0]) == 1 || close(s->fd[1][1]) == -1)
 			perror_exit(NULL, 1);
 		execve(s->exec_args[1][0], s->exec_args[1] + 1, env);
 		perror_exit(NULL, 1);
@@ -54,8 +54,8 @@ int	main(int ac, char **av, char **env)
 		exec_pipe(&s, 0, env);
 	else
 		exec_pipe(&s, 1, env);
-	close(s.f1);
-	close(s.f2);
+	close(s.fd[0][0]);
+	close(s.fd[0][1]);
 	if (waitpid(pid, NULL, 0) == -1)
 		perror_exit(NULL, 1);
 	return (0);

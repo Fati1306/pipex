@@ -20,9 +20,7 @@
 
 typedef struct s_args
 {
-	int		f1;
-	int		f2;
-	int		fd[2];
+	int		*fd[2];
 	char	***cmds;
 	char	**paths;
 	char	***exec_args;

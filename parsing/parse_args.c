@@ -12,17 +12,40 @@
 
 #include "../pipex.h"
 
+static void	init_fd(t_args *s, int ac, char **av)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 1;
+	while (i < ac - 2)
+	{
+		s->fd[i] = (int *) malloc(sizeof(int) * 2);
+		if (s->fd[i] == NULL)
+			perror_exit(NULL, 1);
+		if (i == 0)
+		{
+			s->fd[i][0] = open(av[1], O_RDONLY);
+			s->fd[i][1] = open(av[ac - 1], O_WRONLY | O_TRUNC);
+			if (s->fd[i][0] == -1 || s->fd[i][1] == -1)
+				perror_exit(NULL, 1);
+		}
+		else
+		{
+			if (pipe(s->fd[i]) == -1)
+				perror_exit(NULL, 1);
+		}
+		i++;
+	}
+}
+
 void	parse_args(int ac, char	**av, t_args *s)
 {
 	int	i;
 
 	i = 2;
-	s->f1 = open(av[1], O_RDONLY);
-	s->f2 = open(av[ac - 1], O_WRONLY | O_TRUNC);
-	if (s->f1 == -1 || s->f2 == -1)
-		perror_exit(NULL, 1);
-	if (pipe(s->fd) == -1)
-		perror_exit(NULL, 1);
+	init_fd(s, ac, av);
 	s->cmds = (char ***) malloc(sizeof(char **) * (ac - 2));
 	if (s->cmds == NULL)
 		perror_exit(NULL, 1);
