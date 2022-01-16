@@ -15,7 +15,7 @@
 static void	init(int ac, char **av, t_args *s, char **env)
 {
 	if (ac != 5)
-		perror_exit("incorrect number of arguments\n", 1);
+		perror_exit("incorrect number of arguments", 1);
 	parse_args(ac, av, s);
 	parse_path(env, s);
 	get_exec_args(s, ac);

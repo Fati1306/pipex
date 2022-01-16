@@ -18,7 +18,7 @@ OBJS = $(SRCS:.c=.o)
 
 BONUS_NAME = pipex_bonus
 
-BONUS_SRCS = pipex_bonus.c parsing/parse_args.c parsing/parse_path.c parsing/get_exec_args.c utils/err_exit.c utils/ft_split.c utils/ft_strdup.c utils/ft_strlen.c utils/ft_strjoin.c
+BONUS_SRCS = pipex_bonus.c parsing/parse_args_bonus.c parsing/parse_path.c parsing/get_exec_args.c utils/err_exit.c utils/ft_split.c utils/ft_strdup.c utils/ft_strlen.c utils/ft_strjoin.c utils/ft_strncmp.c utils/ft_strcpy.c utils/get_next_line.c utils/ft_strchr.c
 
 BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 
@@ -43,7 +43,7 @@ test:
 	./pipex file1 "wc -l" cat file2
 
 test_bonus:
-	./pipex_bonus file1 "wc -l" cat file2
+	./pipex_bonus here_doc o "grep 1" cat file2
 
 clean:
 	$(RM) $(OBJS) $(BONUS_OBJS)

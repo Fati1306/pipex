@@ -18,6 +18,8 @@
 # include <unistd.h>
 # include <stdio.h>
 
+# define BUFFER_SIZE 1
+
 typedef struct s_args
 {
 	int		*fd[2];
@@ -30,7 +32,10 @@ char	**ft_split(char const *s, char c);
 char	*ft_strdup(const char *s1);
 size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2, int check);
-int		ft_strchr(char *str, int c);
+char	*ft_strchr(const char *s, int c);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+char	*ft_strcpy(char *dst, char *src);
+char	*get_next_line(int fd);
 
 void	parse_args(int ac, char	**av, t_args *s);
 void	parse_path(char **env, t_args *s);
