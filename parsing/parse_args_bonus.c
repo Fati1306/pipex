@@ -25,12 +25,12 @@ static void	read_here_doc(t_args *s, char *limiter, char **av, int ac)
 		perror_exit(NULL, 1);
 }
 
-static void	init_fd(t_args *s, int ac, char **av, int count)
+static void	init_fd(t_args *s, int ac, char **av)
 {
 	int	i;
 
 	i = 0;
-	while (i < ac - count)
+	while (i < ac - s->count)
 	{
 		s->fd[i] = (int *) malloc(sizeof(int) * 2);
 		if (s->fd[i] == NULL)
@@ -57,25 +57,18 @@ static void	init_fd(t_args *s, int ac, char **av, int count)
 void	parse_args(int ac, char	**av, t_args *s)
 {
 	int	i;
-	int	count;
 
-	i = 2;
-	count = 2;
-	if (ft_strncmp(av[1], "here_doc", ft_strlen(av[1])) == 0)
-	{
-		count = 3;
-		i = 3;
-	}
-	init_fd(s, ac, av, count);
-	s->cmds = (char ***) malloc(sizeof(char **) * (ac - count));
+	i = s->count;
+	init_fd(s, ac, av);
+	s->cmds = (char ***) malloc(sizeof(char **) * (ac - s->count));
 	if (s->cmds == NULL)
 		perror_exit(NULL, 1);
 	while (i < ac - 1)
 	{
-		s->cmds[i - count] = ft_split(av[i], ' ');
-		if (s->cmds[i - count] == NULL)
+		s->cmds[i - s->count] = ft_split(av[i], ' ');
+		if (s->cmds[i - s->count] == NULL)
 			perror_exit(NULL, 1);
 		i++;
 	}
-	s->cmds[i - count] = NULL;
+	s->cmds[i - s->count] = NULL;
 }

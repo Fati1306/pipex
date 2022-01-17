@@ -26,6 +26,7 @@ typedef struct s_args
 	char	***cmds;
 	char	**paths;
 	char	***exec_args;
+	int		count;
 }	t_args;
 
 char	**ft_split(char const *s, char c);

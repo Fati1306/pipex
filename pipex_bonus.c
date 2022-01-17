@@ -37,6 +37,10 @@ int	main(int ac, char **av, char **env)
 	t_args	s;
 	int		pid;
 
+	if (ft_strncmp(av[1], "here_doc", ft_strlen(av[1])) == 0)
+		s.count = 3;
+	else
+		s.count = 2;
 	init(ac, av, &s, env);
 	pid = fork();
 	if (pid == -1)
