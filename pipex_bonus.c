@@ -1,10 +1,9 @@
-
 #include "pipex.h"
 
 static void	init(int ac, char **av, t_args *s, char **env)
 {
 	if (ac < 5
-		|| (ft_strncmp(av[1], "here_doc", ft_strlen(av[1])) == 0 && ac < 6))
+		|| (ft_strncmp(av[1], "here_doc", ft_strlen(av[1])) == 0 && ac != 6))
 		perror_exit("incorrect number of arguments", 1);
 	parse_args(ac, av, s);
 	parse_path(env, s);
