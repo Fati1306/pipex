@@ -1,56 +1,52 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_args_bonus.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fel-maac <fel-maac@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/18 12:08:31 by fel-maac          #+#    #+#             */
+/*   Updated: 2022/01/18 12:08:40 by fel-maac         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../pipex.h"
 
 static void	read_here_doc(t_args *s, char *limiter, char **av, int ac)
 {
 	char	*line;
 
-	s->fd[0][0] = open("temp", O_RDWR | O_CREAT | O_APPEND, 0644);
-	s->fd[0][1] = open(av[ac - 1], O_WRONLY | O_CREAT | O_APPEND);
-	if (s->fd[0][0] == -1 || s->fd[0][1] == -1)
+	s->file1 = open("temp", O_RDWR | O_CREAT | O_APPEND, 0644);
+	s->file2 = open(av[ac - 1], O_WRONLY | O_CREAT | O_APPEND);
+	if (s->file1 == -1 || s->file2 == -1)
 		perror_exit(NULL, 1);
 	if (write(1, "heredoc> ", 10) == -1)
 		perror_exit(NULL, 1);
 	line = get_next_line(0);
 	while (line && ft_strncmp(line, limiter, ft_strlen(line) - 1) != 0)
 	{
-		if (write(s->fd[0][0], line, ft_strlen(line)) == -1
+		if (write(s->file1, line, ft_strlen(line)) == -1
 			|| write(1, "heredoc> ", 10) == -1)
 			perror_exit(NULL, 1);
 		free(line);
 		line = get_next_line(0);
 	}
-	close(s->fd[0][0]);
-	s->fd[0][0] = open("temp", O_RDONLY, 0444);
-	if (s->fd[0][0] == -1)
+	close(s->file1);
+	s->file1 = open("temp", O_RDONLY, 0444);
+	if (s->file1 == -1)
 		perror_exit(NULL, 1);
 }
 
 static void	init_fd(t_args *s, int ac, char **av)
 {
-	int	i;
-
-	i = 0;
-	while (i < ac - s->count)
+	if (s->count == 3)
+		read_here_doc(s, av[2], av, ac);
+	else
 	{
-		s->fd[i] = (int *) malloc(sizeof(int) * 2);
-		if (s->fd[i] == NULL)
+		s->file1 = open(av[1], O_RDONLY);
+		s->file2 = open(av[ac - 1], O_WRONLY | O_TRUNC);
+		if (s->file1 == -1 || s->file2 == -1)
 			perror_exit(NULL, 1);
-		if (i == 0)
-		{
-			if (ft_strncmp(av[1], "here_doc", ft_strlen(av[1])) == 0)
-				read_here_doc(s, av[2], av, ac);
-			else
-			{
-				s->fd[i][0] = open(av[1], O_RDONLY);
-				s->fd[i][1] = open(av[ac - 1], O_WRONLY | O_TRUNC);
-				if (s->fd[i][0] == -1 || s->fd[i][1] == -1)
-					perror_exit(NULL, 1);
-			}
-		}
-		else
-			if (pipe(s->fd[i]) == -1)
-				perror_exit(NULL, 1);
-		i++;
 	}
 }
 

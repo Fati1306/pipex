@@ -22,7 +22,8 @@
 
 typedef struct s_args
 {
-	int		*fd[2];
+	int		file1;
+	int		file2;
 	char	***cmds;
 	char	**paths;
 	char	***exec_args;

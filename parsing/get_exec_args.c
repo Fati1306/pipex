@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_exec_args.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fel-maac <fel-maac@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/18 12:08:00 by fel-maac          #+#    #+#             */
+/*   Updated: 2022/01/18 12:08:18 by fel-maac         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../pipex.h"
 
 static int	check_cmd_access(char *cmd_path, int *access_err)
@@ -100,38 +112,3 @@ void	get_exec_args(t_args *s, int ac)
 		j++;
 	}
 }
-
-// void	alloc_exec_args(t_args *s, int ac)
-// {
-// 	char	*cmd_path;
-// 	int		i;
-// 	int		j;
-// 	int		checker;
-
-// 	j = 0;
-// 	s->exec_args = (char ***) malloc(sizeof(char **) * (ac - 2));
-// 	while (s->cmds[j])
-// 	{
-// 		i = 0;
-// 		checker = 0;
-// 		while (s->paths[i])
-// 		{
-// 			if (s->cmds[j][0][0] == '.' || s->cmds[j][0][0] == '/')
-// 				cmd_path = ft_strdup(s->cmds[j][0]);
-// 			else
-// 				cmd_path = ft_strjoin(s->paths[i], s->cmds[j][0], 0);
-// 			if (check_cmd_access(cmd_path) == 1)
-// 			{
-// 				alloc_cmd_args(s, cmd_path, j);
-// 				free(cmd_path);
-// 				checker = 1;
-// 				break ;
-// 			}
-// 			free(cmd_path);
-// 			i++;
-// 		}
-// 		if (!checker)
-// 			perror_exit(NULL, 127);
-// 		j++;
-// 	}
-// }

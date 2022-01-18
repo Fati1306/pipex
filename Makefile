@@ -6,7 +6,7 @@
 #    By: fel-maac <fel-maac@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/22 07:30:30 by fel-maac          #+#    #+#              #
-#    Updated: 2022/01/07 11:48:27 by fel-maac         ###   ########.fr        #
+#    Updated: 2022/01/18 12:12:27 by fel-maac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ test:
 	./pipex file1 "wc -l" cat file2
 
 test_bonus:
-	./pipex_bonus here_doc o "grep 1" cat file2
+	./pipex_bonus file1 "grep 1" cat cat cat cat cat cat cat file2
 
 clean:
 	$(RM) $(OBJS) $(BONUS_OBJS)
