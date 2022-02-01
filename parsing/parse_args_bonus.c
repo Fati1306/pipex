@@ -6,7 +6,7 @@
 /*   By: fel-maac <fel-maac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:08:31 by fel-maac          #+#    #+#             */
-/*   Updated: 2022/01/18 12:08:40 by fel-maac         ###   ########.fr       */
+/*   Updated: 2022/02/01 10:56:46 by fel-maac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@ static void	read_here_doc(t_args *s, char *limiter, char **av, int ac)
 	char	*line;
 
 	s->file1 = open("temp", O_RDWR | O_CREAT | O_APPEND, 0644);
-	s->file2 = open(av[ac - 1], O_WRONLY | O_CREAT | O_APPEND);
+	s->file2 = open(av[ac - 1], O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (s->file1 == -1 || s->file2 == -1)
 		perror_exit(NULL, 1);
-	if (write(1, "heredoc> ", 10) == -1)
+	if (write(1, "pipe heredoc> ", 15) == -1)
 		perror_exit(NULL, 1);
 	line = get_next_line(0);
 	while (line && ft_strncmp(line, limiter, ft_strlen(line) - 1) != 0)
 	{
 		if (write(s->file1, line, ft_strlen(line)) == -1
-			|| write(1, "heredoc> ", 10) == -1)
+			|| write(1, "pipe heredoc> ", 15) == -1)
 			perror_exit(NULL, 1);
 		free(line);
 		line = get_next_line(0);
@@ -44,7 +44,7 @@ static void	init_fd(t_args *s, int ac, char **av)
 	else
 	{
 		s->file1 = open(av[1], O_RDONLY);
-		s->file2 = open(av[ac - 1], O_WRONLY | O_TRUNC);
+		s->file2 = open(av[ac - 1], O_WRONLY | O_TRUNC | O_CREAT, 0644);
 		if (s->file1 == -1 || s->file2 == -1)
 			perror_exit(NULL, 1);
 	}

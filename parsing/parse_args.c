@@ -6,7 +6,7 @@
 /*   By: fel-maac <fel-maac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 11:07:11 by fel-maac          #+#    #+#             */
-/*   Updated: 2022/01/07 10:34:12 by fel-maac         ###   ########.fr       */
+/*   Updated: 2022/02/01 10:56:26 by fel-maac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	init_fd(t_args *s, int ac, char **av)
 {
 	s->file1 = open(av[1], O_RDONLY);
-	s->file2 = open(av[ac - 1], O_WRONLY | O_TRUNC);
+	s->file2 = open(av[ac - 1], O_WRONLY | O_TRUNC | O_CREAT, 0644);
 	if (s->file1 == -1 || s->file2 == -1)
 		perror_exit(NULL, 1);
 }

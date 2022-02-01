@@ -6,7 +6,7 @@
 /*   By: fel-maac <fel-maac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 12:08:00 by fel-maac          #+#    #+#             */
-/*   Updated: 2022/01/18 12:08:18 by fel-maac         ###   ########.fr       */
+/*   Updated: 2022/01/31 10:19:34 by fel-maac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,11 @@ static int	check_cmd_access(char *cmd_path, int *access_err)
 	if (access(cmd_path, F_OK) == -1)
 	{
 		*access_err = 127;
-		if (access(cmd_path, X_OK) == -1)
-			*access_err = 126;
+		return (0);
+	}
+	if (access(cmd_path, X_OK) == -1)
+	{
+		*access_err = 126;
 		return (0);
 	}
 	return (1);
